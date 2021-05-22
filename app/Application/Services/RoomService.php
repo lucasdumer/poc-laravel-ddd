@@ -26,7 +26,11 @@ class RoomService implements IRoomService
 
     public function find(int $id): Room
     {
-
+        try {
+            return $this->roomRepository->find($id);
+        } catch(\Exception $e) {
+            throw new \Exception("Service error on find room. ".$e->getMessage());
+        }
     }
 
     public function update(IRoomUpdateCommand $roomUpdateCommand): Room

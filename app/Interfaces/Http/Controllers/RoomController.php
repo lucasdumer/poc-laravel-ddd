@@ -5,6 +5,7 @@ namespace App\Interfaces\Http\Controllers;
 use App\Application\Commands\RoomCreateCommand;
 use App\Application\Services\RoomService;
 use App\Interfaces\Http\Requests\Room\CreateRequest;
+use App\Interfaces\Http\Requests\Room\FindRequest;
 
 class RoomController extends Controller
 {
@@ -25,9 +26,13 @@ class RoomController extends Controller
         }
     }
 
-    public function find()
+    public function find(FindRequest $request)
     {
-
+        try {
+            return $this->success($this->roomService->find($request->id)->toArray());
+        } catch(\Exception $e) {
+            return $this->error($e);
+        }
     }
 
     public function update()

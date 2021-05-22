@@ -25,7 +25,10 @@ class RoomRepository implements IRoomRepository
     public function find(int $id): Room
     {
         try {
-
+            $roomModel = RoomModel::find($id);
+            $room = new Room($roomModel->name, $roomModel->number_maximum_people);
+            $room->setId($roomModel->id);
+            return $room;
         } catch(\Exception $e) {
             throw new \Exception("Database error on find room. ".$e->getMessage());
         }

@@ -45,4 +45,13 @@ class Room
     {
         return $this->numberMaximumPeople > $numberPeople;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'number' => $this->number,
+            'numberMaximumPeople' => $this->numberMaximumPeople
+        ];
+    }
 }

@@ -36,11 +36,6 @@ class Room
         return $this->numberMaximumPeople;
     }
 
-    public function setNumberMaximumPeople(int $numberMaximumPeople): void
-    {
-        $this->numberMaximumPeople = $numberMaximumPeople;
-    }
-
     public function exceedsTheMaximumNumberOfPeople($numberPeople): boolean
     {
         return $this->numberMaximumPeople > $numberPeople;

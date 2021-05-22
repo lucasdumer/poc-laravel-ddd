@@ -7,7 +7,7 @@ class Room
     private int $id;
 
     public function __construct(
-        private int $number,
+        private string $name,
         private int $numberMaximumPeople
     ) {}
 
@@ -21,14 +21,14 @@ class Room
         $this->id = $id;
     }
 
-    public function getNumber(): int
+    public function getName(): string
     {
-        return $this->number;
+        return $this->name;
     }
 
-    public function setNumber(int $number): void
+    public function setName(int $name): void
     {
-        $this->number = $number;
+        $this->name = $name;
     }
 
     public function getNumberMaximumPeople(): int
@@ -50,7 +50,7 @@ class Room
     {
         return [
             'id' => $this->id,
-            'number' => $this->number,
+            'name' => $this->name,
             'numberMaximumPeople' => $this->numberMaximumPeople
         ];
     }

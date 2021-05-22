@@ -17,10 +17,7 @@ class RoomService implements IRoomService
     public function create(IRoomCreateCommand $roomCreateCommand): Room
     {
         try {
-            $room = new Room(
-                $roomCreateCommand->getNumber(),
-                $roomCreateCommand->getNumberMaximumPeople()
-            );
+            $room = new Room($roomCreateCommand->getName(), $roomCreateCommand->getNumberMaximumPeople());
             return $this->roomRepository->create($room);
         } catch(\Exception $e) {
             throw new \Exception("Service error on creating room. ".$e->getMessage());

@@ -9,7 +9,7 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'number' => ['required', 'integer'],
+            'name' => ['required', 'max:255'],
             'numberMaximumPeople' => ['required', 'integer'],
         ];
     }

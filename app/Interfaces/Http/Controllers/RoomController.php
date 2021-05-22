@@ -16,7 +16,7 @@ class RoomController extends Controller
     {
         try {
             $roomCreateCommand = new RoomCreateCommand(
-                $request->number,
+                $request->name,
                 $request->numberMaximumPeople
             );
             return $this->success($this->roomService->create($roomCreateCommand)->toArray());

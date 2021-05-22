@@ -12,7 +12,7 @@ class RoomRepository implements IRoomRepository
     {
         try {
             $roomModel = new RoomModel();
-            $roomModel->number = $room->getNumber();
+            $roomModel->name = $room->getName();
             $roomModel->number_maximum_people = $room->getNumberMaximumPeople();
             $roomModel->save();
             $room->setId($roomModel->id);

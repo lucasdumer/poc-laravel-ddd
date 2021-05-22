@@ -15,7 +15,7 @@ class CreateRooms extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->integer('number');
+            $table->string('name');
             $table->integer('number_maximum_people');
         });
     }

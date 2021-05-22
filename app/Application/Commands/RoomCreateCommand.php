@@ -7,13 +7,13 @@ use App\Domain\School\Room\IRoomCreateCommand;
 class RoomCreateCommand implements IRoomCreateCommand
 {
     public function __construct(
-        private int $number,
+        private string $name,
         private int $numberMaximumPeople
     ) {}
 
-    public function getNumber(): int
+    public function getName(): string
     {
-        return $this->number;
+        return $this->name;
     }
 
     public function getNumberMaximumPeople(): int

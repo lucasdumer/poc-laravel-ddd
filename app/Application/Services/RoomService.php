@@ -35,11 +35,30 @@ class RoomService implements IRoomService
 
     public function update(IRoomUpdateCommand $roomUpdateCommand): Room
     {
-
+        try {
+            $room = $this->find($roomUpdateCommand->getId());
+            $room->setName($roomUpdateCommand->getName());
+            return $this->roomRepository->update($room);
+        } catch(\Exception $e) {
+            throw new \Exception("Service error on update room. ".$e->getMessage());
+        }
     }
 
     public function delete(int $id): bool
     {
+        try {
+            return $this->roomRepository->delete($id);
+        } catch(\Exception $e) {
+            throw new \Exception("Service error on delete room. ".$e->getMessage());
+        }
+    }
 
+    public function list(string $name = null): array
+    {
+        try {
+            return $this->roomRepository->list($name);
+        } catch(\Exception $e) {
+            throw new \Exception("Service error on list room. ".$e->getMessage());
+        }
     }
 }

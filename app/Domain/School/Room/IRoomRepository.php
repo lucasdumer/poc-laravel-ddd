@@ -8,4 +8,5 @@ interface IRoomRepository
     public function find(int $id): Room;
     public function update(Room $room): Room;
     public function delete(int $id): bool;
+    public function list(string $name = null): array;
 }

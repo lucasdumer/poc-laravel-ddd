@@ -3,9 +3,13 @@
 namespace App\Interfaces\Http\Controllers;
 
 use App\Application\Commands\RoomCreateCommand;
+use App\Application\Commands\RoomUpdateCommand;
 use App\Application\Services\RoomService;
 use App\Interfaces\Http\Requests\Room\CreateRequest;
+use App\Interfaces\Http\Requests\Room\DeleteRequest;
 use App\Interfaces\Http\Requests\Room\FindRequest;
+use App\Interfaces\Http\Requests\Room\ListRequest;
+use App\Interfaces\Http\Requests\Room\UpdateRequest;
 
 class RoomController extends Controller
 {
@@ -35,18 +39,34 @@ class RoomController extends Controller
         }
     }
 
-    public function update()
+    public function update(UpdateRequest $request)
     {
-
+        try {
+            $roomUpdateCommand = new RoomUpdateCommand(
+                $request->id,
+                $request->name
+            );
+            return $this->success($this->roomService->update($roomUpdateCommand)->toArray());
+        } catch(\Exception $e) {
+            return $this->error($e);
+        }
     }
 
-    public function delete()
+    public function delete(DeleteRequest $request)
     {
-
+        try {
+            return $this->success($this->roomService->delete($request->id));
+        } catch(\Exception $e) {
+            return $this->error($e);
+        }
     }
 
-    public function list()
+    public function list(ListRequest $request)
     {
-
+        try {
+            return $this->success($this->roomService->list($request->name));
+        } catch(\Exception $e) {
+            return $this->error($e);
+        }
     }
 }

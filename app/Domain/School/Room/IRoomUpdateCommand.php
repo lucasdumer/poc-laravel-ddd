@@ -2,7 +2,8 @@
 
 namespace App\Domain\School\Room;
 
-interface IRoomUpdateCommand extends IRoomCreateCommand
+interface IRoomUpdateCommand
 {
     public function getId(): int;
+    public function getName(): string;
 }

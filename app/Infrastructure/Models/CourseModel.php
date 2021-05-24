@@ -2,7 +2,9 @@
 
 namespace App\Infrastructure\Models;
 
-class CourseModel
+use Illuminate\Database\Eloquent\Model;
+
+class CourseModel extends Model
 {
     protected $table = "courses";
 

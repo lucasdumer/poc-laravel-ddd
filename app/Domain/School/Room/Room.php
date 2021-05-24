@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\School\Room;
+namespace App\Domain\School;
 
 class Room
 {

@@ -5,6 +5,7 @@ namespace App\Infrastructure\Repositories;
 use App\Domain\School\Course\Course;
 use App\Domain\School\Course\ICourseRepository;
 use App\Infrastructure\Models\CourseModel;
+use Illuminate\Support\Facades\DB;
 
 class CourseRepository implements ICourseRepository
 {
@@ -29,7 +30,7 @@ class CourseRepository implements ICourseRepository
             if (!$courseModel) {
                 throw new \Exception("Dont find course with id: ".$id);
             }
-            $course = new Room($courseModel->name, $courseModel->description);
+            $course = new Course($courseModel->name, $courseModel->description);
             $course->setId($courseModel->id);
             return $course;
         } catch(\Exception $e) {
@@ -73,7 +74,7 @@ class CourseRepository implements ICourseRepository
             }
             $courses = $table->get();
             return array_map(function ($courseModel) {
-                $course = new Corse($courseModel->name, $courseModel->description);
+                $course = new Course($courseModel->name, $courseModel->description);
                 $course->setId($courseModel->id);
                 return $course->toArray();
             }, $courses->toArray());

@@ -6,8 +6,8 @@ use App\Application\Commands\RoomCreateCommand;
 use App\Application\Commands\RoomUpdateCommand;
 use App\Application\Services\RoomService;
 use App\Interfaces\Http\Requests\Room\CreateRequest;
-use App\Interfaces\Http\Requests\Room\DeleteRequest;
-use App\Interfaces\Http\Requests\Room\FindRequest;
+use App\Interfaces\Http\Requests\DeleteRequest;
+use App\Interfaces\Http\Requests\FindRequest;
 use App\Interfaces\Http\Requests\Room\ListRequest;
 use App\Interfaces\Http\Requests\Room\UpdateRequest;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Interfaces\Http\Requests\Room;
+namespace App\Interfaces\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteRequest extends FormRequest
+class FindRequest extends FormRequest
 {
     public function all($keys = null)
     {
@@ -16,7 +16,7 @@ class DeleteRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => ['required', 'integer']
+            'id' => 'required|integer'
         ];
     }
 }

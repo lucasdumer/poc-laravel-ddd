@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Interfaces\Http\Controllers\TeamController;
 use App\Interfaces\Http\Controllers\RoomController;
 use App\Interfaces\Http\Controllers\CourseController;
 /*
@@ -27,5 +26,3 @@ Route::get('courses/{id}', [CourseController::class, 'find']);
 Route::put('courses/{id}', [CourseController::class, 'update']);
 Route::delete('courses/{id}', [CourseController::class, 'delete']);
 Route::get('courses', [CourseController::class, 'list']);
-
-Route::post('teams', [TeamController::class, 'create']);

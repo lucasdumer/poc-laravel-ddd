@@ -3,9 +3,10 @@
 namespace App\Infrastructure\Repositories;
 
 use App\Domain\School\Course\Course;
+use App\Domain\School\Course\ICourseRepository;
 use App\Infrastructure\Models\CourseModel;
 
-class CourseRepository
+class CourseRepository implements ICourseRepository
 {
     public function create(Course $course): Course
     {

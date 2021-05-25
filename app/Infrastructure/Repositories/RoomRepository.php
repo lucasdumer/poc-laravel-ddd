@@ -67,13 +67,18 @@ class RoomRepository implements IRoomRepository
                 $table->where('name', 'like', '%'.$name.'%');
             }
             $rooms = $table->get();
-            return array_map(function ($roomModel) {
-                $room = new Room($roomModel->name, $roomModel->number_maximum_people);
-                $room->setId($roomModel->id);
-                return $room->toArray();
-            }, $rooms->toArray());
+            return $this->map($rooms->toArray());
         } catch(\Exception $e) {
             throw new \Exception("Database error on list room. ".$e->getMessage());
         }
+    }
+
+    private function map(array $rooms): array
+    {
+        return array_map(function ($roomModel) {
+            $room = new Room($roomModel->name, $roomModel->number_maximum_people);
+            $room->setId($roomModel->id);
+            return $room->toArray();
+        }, $rooms);
     }
 }

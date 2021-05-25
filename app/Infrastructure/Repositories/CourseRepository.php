@@ -73,13 +73,18 @@ class CourseRepository implements ICourseRepository
                 $table->where('description', 'like', '%'.$description.'%');
             }
             $courses = $table->get();
-            return array_map(function ($courseModel) {
-                $course = new Course($courseModel->name, $courseModel->description);
-                $course->setId($courseModel->id);
-                return $course->toArray();
-            }, $courses->toArray());
+            return $this->map($courses->toArray());
         } catch(\Exception $e) {
             throw new \Exception("Database error on list course. ".$e->getMessage());
         }
+    }
+
+    private function map(array $courses): array
+    {
+        return array_map(function ($courseModel) {
+            $course = new Course($courseModel->name, $courseModel->description);
+            $course->setId($courseModel->id);
+            return $course->toArray();
+        }, $courses);
     }
 }

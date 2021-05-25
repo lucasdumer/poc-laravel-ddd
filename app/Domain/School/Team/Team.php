@@ -65,4 +65,16 @@ class Team
     {
         $this->shift = $shift;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'course_id' => $this->course->getId(),
+            'room_id' => $this->room->getId(),
+            'start' => $this->period->getStart(),
+            'end' => $this->period->getEnd(),
+            'shift' => $this->shift,
+        ];
+    }
 }

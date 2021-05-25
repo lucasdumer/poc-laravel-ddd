@@ -8,5 +8,5 @@ interface ITeamCreateCommand
     public function getRoomId(): int;
     public function getStart(): \DateTime;
     public function getEnd(): \DateTime;
-    public function getShift(): int;
+    public function getShift(): string;
 }

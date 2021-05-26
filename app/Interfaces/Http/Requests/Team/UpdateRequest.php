@@ -2,7 +2,9 @@
 
 namespace App\Interfaces\Http\Requests\Team;
 
-class UpdateRequest
+use Illuminate\Foundation\Http\FormRequest;
+
+class UpdateRequest extends FormRequest
 {
     public function all($keys = null)
     {

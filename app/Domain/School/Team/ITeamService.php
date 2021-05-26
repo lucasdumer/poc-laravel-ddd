@@ -8,5 +8,5 @@ interface ITeamService
     public function find(int $id): Team;
     public function update(ITeamUpdateCommand $teamUpdateCommand): Team;
     public function delete(int $id): bool;
-    public function list(): array;
+    public function list(int $courseId = null, int $roomId = null): array;
 }

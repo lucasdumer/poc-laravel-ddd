@@ -40,7 +40,7 @@ class TeamRepository implements ITeamRepository
             $team = new Team(
                 $course,
                 $room,
-                new Period($teamModel->start, $teamModel->end),
+                new Period(new \DateTime($teamModel->start), new \DateTime($teamModel->end)),
                 $teamModel->shift
             );
             $team->setId($teamModel->id);

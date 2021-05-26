@@ -20,10 +20,10 @@ class TeamService implements ITeamService
     {
         try {
             $course = $this->courseService->find($teamCreateCommand->getCourseId());
-            $team = $this->roomService->find($teamCreateCommand->getRoomId());
+            $room = $this->roomService->find($teamCreateCommand->getRoomId());
             $team = new Team(
                 $course,
-                $team,
+                $room,
                 new Period($teamCreateCommand->getStart(), $teamCreateCommand->getEnd()),
                 $teamCreateCommand->getShift()
             );
@@ -35,12 +35,27 @@ class TeamService implements ITeamService
 
     public function find(int $id): Team
     {
-        // TODO: Implement find() method.
+        try {
+            return $this->teamRepository->find($id);
+        } catch(\Exception $e) {
+            throw new \Exception("Service error on find team. ".$e->getMessage());
+        }
     }
 
     public function update(ITeamUpdateCommand $teamUpdateCommand): Team
     {
-        // TODO: Implement update() method.
+        try {
+            $course = $this->courseService->find($teamUpdateCommand->getCourseId());
+            $room = $this->roomService->find($teamUpdateCommand->getRoomId());
+            $team = $this->find($teamUpdateCommand->getId());
+            $team->setCourse($course);
+            $team->setRoom($room);
+            $team->setPeriod(new Period($teamUpdateCommand->getStart(), $teamUpdateCommand->getEnd()));
+            $team->setShift($teamUpdateCommand->getShift());
+            return $this->teamRepository->update($team);
+        } catch(\Exception $e) {
+            throw new \Exception("Service error on update team. ".$e->getMessage());
+        }
     }
 
     public function delete(int $id): bool
@@ -48,7 +63,7 @@ class TeamService implements ITeamService
         // TODO: Implement delete() method.
     }
 
-    public function list(): array
+    public function list(int $courseId = null, int $roomId = null): array
     {
         // TODO: Implement list() method.
     }

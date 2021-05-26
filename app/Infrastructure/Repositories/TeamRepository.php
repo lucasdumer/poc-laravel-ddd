@@ -124,7 +124,7 @@ class TeamRepository implements ITeamRepository
             $teams = $table->get();
             return $this->mapObj($teams->toArray());
         } catch(\Exception $e) {
-            throw new \Exception("Database error on list team. ".$e->getMessage());
+            throw new \Exception("Database error on list obj team. ".$e->getMessage());
         }
     }
 

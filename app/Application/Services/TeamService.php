@@ -14,8 +14,7 @@ class TeamService implements ITeamService
     public function __construct(
         private CourseService $courseService,
         private RoomService $roomService,
-        private TeamRepository $teamRepository,
-        private TeamPeriodCheckerService $teamPeriodCheckerService
+        private TeamRepository $teamRepository
     ) {}
 
     public function create(ITeamCreateCommand $teamCreateCommand): Team
@@ -30,7 +29,8 @@ class TeamService implements ITeamService
                 $period,
                 $teamCreateCommand->getShift()
             );
-            $this->teamPeriodCheckerService->check($room, $period, $teamCreateCommand->getShift());
+            $teams = $this->teamRepository->loadListObj(roomId: $room->getId());
+            $team->checkPeriods($teams, $period, $teamCreateCommand->getShift());
             return $this->teamRepository->create($team);
         } catch(\Exception $e) {
             throw new \Exception("Service error on creating team. ".$e->getMessage());
@@ -59,7 +59,8 @@ class TeamService implements ITeamService
                 $period,
                 $teamUpdateCommand->getShift()
             );
-            $this->teamPeriodCheckerService->check($room, $period, $teamUpdateCommand->getShift());
+            $teams = $this->teamRepository->loadListObj(roomId: $room->getId());
+            $team->checkPeriods($teams, $period, $teamUpdateCommand->getShift());
             return $this->teamRepository->update($team);
         } catch(\Exception $e) {
             throw new \Exception("Service error on update team. ".$e->getMessage());

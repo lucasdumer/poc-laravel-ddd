@@ -78,6 +78,18 @@ class Team
         $this->shift = $shift;
     }
 
+    public function checkPeriods(array $teams, Period $period, string $shift): void
+    {
+        foreach($teams as $team) {
+            if (
+                !($period->getEnd() < $team->getPeriod()->getStart() || $period->getStart() > $team->getPeriod()->getEnd()) &&
+                $team->getShift() == $shift
+            ) {
+                throw new \Exception("There is already a class in the range.");
+            }
+        }
+    }
+
     public function toArray(): array
     {
         return [

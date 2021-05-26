@@ -35,6 +35,9 @@ class TeamRepository implements ITeamRepository
     {
         try {
             $teamModel = TeamModel::find($id);
+            if (!$teamModel) {
+                throw new \Exception("Dont find team with id: ".$id);
+            }
             $course = $this->courseRepository->find($teamModel->course_id);
             $room = $this->roomRepository->find($teamModel->room_id);
             $team = new Team(
@@ -94,7 +97,7 @@ class TeamRepository implements ITeamRepository
         }
     }
 
-    private function map(array $teams): array
+    public function map($teams)
     {
         return array_map(function ($teamModel) {
             return [
@@ -105,6 +108,39 @@ class TeamRepository implements ITeamRepository
                 'end' => $teamModel->end,
                 'shift' => $teamModel->shift
             ];
+        }, $teams);
+    }
+
+    public function loadListObj(int $courseId = null, int $roomId = null): array
+    {
+        try {
+            $table = DB::table('teams');
+            if (!empty($courseId)) {
+                $table->where('course_id', '=', $courseId);
+            }
+            if (!empty($roomId)) {
+                $table->where('room_id', '=', $roomId);
+            }
+            $teams = $table->get();
+            return $this->mapObj($teams->toArray());
+        } catch(\Exception $e) {
+            throw new \Exception("Database error on list team. ".$e->getMessage());
+        }
+    }
+
+    private function mapObj(array $teams): array
+    {
+        return array_map(function ($teamModel) {
+            $course = $this->courseRepository->find($teamModel->course_id);
+            $room = $this->roomRepository->find($teamModel->room_id);
+            $team = new Team(
+                $course,
+                $room,
+                new Period(new \DateTime($teamModel->start), new \DateTime($teamModel->end)),
+                $teamModel->shift
+            );
+            $team->setId($teamModel->id);
+            return $team;
         }, $teams);
     }
 }

@@ -41,6 +41,12 @@ class Course
         $this->description = $description;
     }
 
+    public function update(string $name, string $description): void
+    {
+        $this->name = $name;
+        $this->description = $description;
+    }
+
     public function toArray(): array
     {
         return [

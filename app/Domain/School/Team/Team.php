@@ -66,6 +66,18 @@ class Team
         $this->shift = $shift;
     }
 
+    public function update(
+        Course $course,
+        Room $room,
+        Period $period,
+        string $shift
+    ): void {
+        $this->course = $course;
+        $this->room = $room;
+        $this->period = $period;
+        $this->shift = $shift;
+    }
+
     public function toArray(): array
     {
         return [

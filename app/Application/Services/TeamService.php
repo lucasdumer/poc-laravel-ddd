@@ -14,19 +14,23 @@ class TeamService implements ITeamService
     public function __construct(
         private CourseService $courseService,
         private RoomService $roomService,
-        private TeamRepository $teamRepository
+        private TeamRepository $teamRepository,
+        private TeamPeriodCheckerService $teamPeriodCheckerService
     ) {}
+
     public function create(ITeamCreateCommand $teamCreateCommand): Team
     {
         try {
             $course = $this->courseService->find($teamCreateCommand->getCourseId());
             $room = $this->roomService->find($teamCreateCommand->getRoomId());
+            $period = new Period($teamCreateCommand->getStart(), $teamCreateCommand->getEnd());
             $team = new Team(
                 $course,
                 $room,
-                new Period($teamCreateCommand->getStart(), $teamCreateCommand->getEnd()),
+                $period,
                 $teamCreateCommand->getShift()
             );
+            $this->teamPeriodCheckerService->check($room, $period, $teamCreateCommand->getShift());
             return $this->teamRepository->create($team);
         } catch(\Exception $e) {
             throw new \Exception("Service error on creating team. ".$e->getMessage());
@@ -47,11 +51,15 @@ class TeamService implements ITeamService
         try {
             $course = $this->courseService->find($teamUpdateCommand->getCourseId());
             $room = $this->roomService->find($teamUpdateCommand->getRoomId());
+            $period = new Period($teamUpdateCommand->getStart(), $teamUpdateCommand->getEnd());
             $team = $this->find($teamUpdateCommand->getId());
-            $team->setCourse($course);
-            $team->setRoom($room);
-            $team->setPeriod(new Period($teamUpdateCommand->getStart(), $teamUpdateCommand->getEnd()));
-            $team->setShift($teamUpdateCommand->getShift());
+            $team->update(
+                $course,
+                $room,
+                $period,
+                $teamUpdateCommand->getShift()
+            );
+            $this->teamPeriodCheckerService->check($room, $period, $teamUpdateCommand->getShift());
             return $this->teamRepository->update($team);
         } catch(\Exception $e) {
             throw new \Exception("Service error on update team. ".$e->getMessage());

@@ -37,8 +37,7 @@ class CourseService implements ICourseService
     {
         try {
             $course = $this->find($courseUpdateCommand->getId());
-            $course->setName($courseUpdateCommand->getName());
-            $course->setDescription($courseUpdateCommand->getDescription());
+            $course->update($courseUpdateCommand->getName(), $courseUpdateCommand->getDescription());
             return $this->courseRepository->update($course);
         } catch(\Exception $e) {
             throw new \Exception("Service error on update course. ".$e->getMessage());

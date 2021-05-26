@@ -60,11 +60,19 @@ class TeamService implements ITeamService
 
     public function delete(int $id): bool
     {
-        // TODO: Implement delete() method.
+        try {
+            return $this->teamRepository->delete($id);
+        } catch(\Exception $e) {
+            throw new \Exception("Service error on delete team. ".$e->getMessage());
+        }
     }
 
     public function list(int $courseId = null, int $roomId = null): array
     {
-        // TODO: Implement list() method.
+        try {
+            return $this->teamRepository->list($courseId, $roomId);
+        } catch(\Exception $e) {
+            throw new \Exception("Service error on list team. ".$e->getMessage());
+        }
     }
 }

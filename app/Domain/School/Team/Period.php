@@ -4,10 +4,19 @@ namespace App\Domain\School\Team;
 
 class Period
 {
-    public function __construct(
-        private \DateTime $start,
-        private \DateTime $end
-    ) {}
+    private \DateTime $start;
+
+    private \DateTime $end;
+
+    public function __construct(\DateTime $start, \DateTime $end)
+    {
+        if ($start > $end) {
+            throw new \Exception("Period invalid.");
+        }
+
+        $this->start = $start;
+        $this->end = $end;
+    }
 
     public function getStart(): \DateTime
     {

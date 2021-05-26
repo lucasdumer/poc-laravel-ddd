@@ -9,7 +9,9 @@ class Room
     public function __construct(
         private string $name,
         private int $numberMaximumPeople
-    ) {}
+    ) {
+        $this->validate();
+    }
 
     public function getId(): int
     {
@@ -39,6 +41,17 @@ class Room
     public function exceedsTheMaximumNumberOfPeople($numberPeople): boolean
     {
         return $this->numberMaximumPeople > $numberPeople;
+    }
+
+    private function validate(): void
+    {
+        if (empty($this->name)) {
+            throw new \Exception("Room name invalid.");
+        }
+
+        if ($this->numberMaximumPeople <= 0) {
+            throw new \Exception("Room number maximum of people invalid.");
+        }
     }
 
     public function toArray(): array

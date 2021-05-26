@@ -14,7 +14,10 @@ class Team
         private Room $room,
         private Period $period,
         private string $shift
-    ) {}
+    )
+    {
+        $this->validate();
+    }
 
     public function getId(): int
     {
@@ -66,6 +69,13 @@ class Team
         $this->shift = $shift;
     }
 
+    private function validate(): void
+    {
+        if ($this->shift != 'morning' && $this->shift != 'evening' && $this->shift != 'night' ) {
+            throw new \Exception("Shift invalid.");
+        }
+    }
+
     public function update(
         Course $course,
         Room $room,
@@ -76,6 +86,7 @@ class Team
         $this->room = $room;
         $this->period = $period;
         $this->shift = $shift;
+        $this->validate();
     }
 
     public function checkPeriods(array $teams, Period $period, string $shift): void

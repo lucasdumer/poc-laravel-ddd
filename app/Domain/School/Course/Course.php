@@ -9,7 +9,9 @@ class Course
     public function __construct(
         private string $name,
         private string $description
-    ) {}
+    ) {
+        $this->validate();
+    }
 
     public function getId(): int
     {
@@ -45,6 +47,17 @@ class Course
     {
         $this->name = $name;
         $this->description = $description;
+    }
+
+    private function validate(): void
+    {
+        if (empty($this->name)) {
+            throw new \Exception("Course name invalid.");
+        }
+
+        if (empty($this->description)) {
+            throw new \Exception("Course description invalid.");
+        }
     }
 
     public function toArray(): array

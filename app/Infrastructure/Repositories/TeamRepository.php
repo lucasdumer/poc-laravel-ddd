@@ -80,24 +80,28 @@ class TeamRepository implements ITeamRepository
         }
     }
 
+    private function get(int $courseId = null, int $roomId = null): array
+    {
+        $table = DB::table('teams');
+        if (!empty($courseId)) {
+            $table->where('course_id', '=', $courseId);
+        }
+        if (!empty($roomId)) {
+            $table->where('room_id', '=', $roomId);
+        }
+        return $table->get()->toArray();
+    }
+
     public function list(int $courseId = null, int $roomId = null): array
     {
         try {
-            $table = DB::table('teams');
-            if (!empty($courseId)) {
-                $table->where('course_id', '=', $courseId);
-            }
-            if (!empty($roomId)) {
-                $table->where('room_id', '=', $roomId);
-            }
-            $teams = $table->get();
-            return $this->map($teams->toArray());
+            return $this->toArray($this->get($courseId, $roomId));
         } catch(\Exception $e) {
             throw new \Exception("Database error on list team. ".$e->getMessage());
         }
     }
 
-    public function map($teams)
+    public function toArray($teams)
     {
         return array_map(function ($teamModel) {
             return [
@@ -111,24 +115,16 @@ class TeamRepository implements ITeamRepository
         }, $teams);
     }
 
-    public function loadListObj(int $courseId = null, int $roomId = null): array
+    public function load(int $courseId = null, int $roomId = null): array
     {
         try {
-            $table = DB::table('teams');
-            if (!empty($courseId)) {
-                $table->where('course_id', '=', $courseId);
-            }
-            if (!empty($roomId)) {
-                $table->where('room_id', '=', $roomId);
-            }
-            $teams = $table->get();
-            return $this->mapObj($teams->toArray());
+            return $this->toArrayObj($this->get($courseId, $roomId));
         } catch(\Exception $e) {
             throw new \Exception("Database error on list obj team. ".$e->getMessage());
         }
     }
 
-    private function mapObj(array $teams): array
+    private function toArrayObj(array $teams): array
     {
         return array_map(function ($teamModel) {
             $course = $this->courseRepository->find($teamModel->course_id);

@@ -96,8 +96,8 @@ class Team
             'id' => $this->id,
             'course_id' => $this->course->getId(),
             'room_id' => $this->room->getId(),
-            'start' => $this->period->getStart(),
-            'end' => $this->period->getEnd(),
+            'start' => $this->period->getStart()->format('Y-m-d'),
+            'end' => $this->period->getEnd()->format('Y-m-d'),
             'shift' => $this->shift,
         ];
     }

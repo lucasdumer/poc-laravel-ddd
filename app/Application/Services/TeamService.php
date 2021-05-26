@@ -29,7 +29,7 @@ class TeamService implements ITeamService
                 $period,
                 $teamCreateCommand->getShift()
             );
-            $teams = $this->teamRepository->loadListObj(roomId: $room->getId());
+            $teams = $this->teamRepository->load(roomId: $room->getId());
             $team->checkPeriods($teams, $period, $teamCreateCommand->getShift());
             return $this->teamRepository->create($team);
         } catch(\Exception $e) {
@@ -59,7 +59,7 @@ class TeamService implements ITeamService
                 $period,
                 $teamUpdateCommand->getShift()
             );
-            $teams = $this->teamRepository->loadListObj(roomId: $room->getId());
+            $teams = $this->teamRepository->load(roomId: $room->getId());
             $team->checkPeriods($teams, $period, $teamUpdateCommand->getShift());
             return $this->teamRepository->update($team);
         } catch(\Exception $e) {

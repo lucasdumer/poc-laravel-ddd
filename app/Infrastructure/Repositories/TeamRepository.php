@@ -27,7 +27,7 @@ class TeamRepository implements ITeamRepository
             $team->setId($teamModel->id);
             return $team;
         } catch(\Exception $e) {
-            throw new \Exception("Database error on delete team. ".$e->getMessage());
+            throw new \Exception("Database error on create team. ".$e->getMessage());
         }
     }
 

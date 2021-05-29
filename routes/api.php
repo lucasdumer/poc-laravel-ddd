@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Interfaces\Http\Controllers\RoomController;
 use App\Interfaces\Http\Controllers\CourseController;
 use App\Interfaces\Http\Controllers\TeamController;
+use App\Interfaces\Http\Controllers\StudentController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,3 +34,9 @@ Route::get('teams/{id}', [TeamController::class, 'find']);
 Route::put('teams/{id}', [TeamController::class, 'update']);
 Route::delete('teams/{id}', [TeamController::class, 'delete']);
 Route::get('teams', [TeamController::class, 'list']);
+
+Route::post('students', [StudentController::class, 'create']);
+Route::get('students/{id}', [StudentController::class, 'find']);
+Route::put('students/{id}', [StudentController::class, 'update']);
+Route::delete('students/{id}', [StudentController::class, 'delete']);
+Route::get('students', [StudentController::class, 'list']);

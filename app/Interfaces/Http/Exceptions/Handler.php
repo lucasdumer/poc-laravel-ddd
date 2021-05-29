@@ -65,7 +65,7 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof \TypeError || $exception instanceof FatalError) {
+        if ($exception instanceof \TypeError || $exception instanceof FatalError || $exception instanceof Error) {
             return response()->json([
                 'status'=> 'error',
                 'message' => $exception->getMessage(),

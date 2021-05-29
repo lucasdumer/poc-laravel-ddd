@@ -54,6 +54,17 @@ class Student
         $this->sex = $sex;
     }
 
+    public function update(
+        string $name,
+        int $age,
+        string $sex
+    ): void {
+        $this->name = $name;
+        $this->age = $age;
+        $this->sex = $sex;
+        $this->validate();
+    }
+
     private function validate(): void
     {
         if (empty($this->name)) {
@@ -67,5 +78,15 @@ class Student
         if ($this->sex != 'male' && $this->sex != 'female') {
             throw new \Exception("Student sex invalid.");
         }
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'age' => $this->age,
+            'sex' => $this->sex,
+        ];
     }
 }

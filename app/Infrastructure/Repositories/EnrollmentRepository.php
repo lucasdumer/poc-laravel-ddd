@@ -62,7 +62,7 @@ class EnrollmentRepository implements IEnrollmentRepository
     public function delete(int $id): bool
     {
         try {
-            EnrollmentModel::where('id', $id)->delete();
+            return EnrollmentModel::where('id', $id)->delete();
         } catch(\Exception $e) {
             throw new \Exception("Database error on delete enrollment. ".$e->getMessage());
         }

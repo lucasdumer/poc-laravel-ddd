@@ -6,6 +6,7 @@ use App\Interfaces\Http\Controllers\RoomController;
 use App\Interfaces\Http\Controllers\CourseController;
 use App\Interfaces\Http\Controllers\TeamController;
 use App\Interfaces\Http\Controllers\StudentController;
+use App\Interfaces\Http\Controllers\EnrollmentController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -40,3 +41,9 @@ Route::get('students/{id}', [StudentController::class, 'find']);
 Route::put('students/{id}', [StudentController::class, 'update']);
 Route::delete('students/{id}', [StudentController::class, 'delete']);
 Route::get('students', [StudentController::class, 'list']);
+
+Route::post('enrollments', [EnrollmentController::class, 'create']);
+Route::get('enrollments/{id}', [EnrollmentController::class, 'find']);
+Route::put('enrollments/{id}', [EnrollmentController::class, 'update']);
+Route::delete('enrollments/{id}', [EnrollmentController::class, 'delete']);
+Route::get('enrollments', [EnrollmentController::class, 'list']);

@@ -49,4 +49,13 @@ class Enrollment
         $this->team = $team;
         $this->student = $student;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'team_id' => $this->team->getId(),
+            'student_id' => $this->student->getId(),
+        ];
+    }
 }

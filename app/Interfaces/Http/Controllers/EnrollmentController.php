@@ -19,55 +19,35 @@ class EnrollmentController extends Controller
 
     public function create(CreateRequest $request)
     {
-        try {
-            $enrollmentCreateCommand = new EnrollmentCreateCommand(
-                $request->team_id,
-                $request->student_id,
-            );
-            return $this->success($this->enrollmentService->create($enrollmentCreateCommand)->toArray());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        $enrollmentCreateCommand = new EnrollmentCreateCommand(
+            $request->team_id,
+            $request->student_id,
+        );
+        return $this->success($this->enrollmentService->create($enrollmentCreateCommand)->toArray());
     }
 
     public function find(FindRequest $request)
     {
-        try {
-            return $this->success($this->enrollmentService->find($request->id)->toArray());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        return $this->success($this->enrollmentService->find($request->id)->toArray());
     }
 
     public function update(UpdateRequest $request)
     {
-        try {
-            $enrollmentUpdateCommand = new EnrollmentUpdateCommand(
-                $request->id,
-                $request->team_id,
-                $request->student_id,
-            );
-            return $this->success($this->enrollmentService->update($enrollmentUpdateCommand)->toArray());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        $enrollmentUpdateCommand = new EnrollmentUpdateCommand(
+            $request->id,
+            $request->team_id,
+            $request->student_id,
+        );
+        return $this->success($this->enrollmentService->update($enrollmentUpdateCommand)->toArray());
     }
 
     public function delete(DeleteRequest $request)
     {
-        try {
-            return $this->success($this->enrollmentService->delete($request->id));
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        return $this->success($this->enrollmentService->delete($request->id));
     }
 
     public function list(ListRequest $request)
     {
-        try {
-            return $this->success($this->enrollmentService->list());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        return $this->success($this->enrollmentService->list());
     }
 }

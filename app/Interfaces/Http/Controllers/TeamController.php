@@ -19,64 +19,44 @@ class TeamController extends Controller
 
     public function create(CreateRequest $request)
     {
-        try {
-            $teamCreateCommand = new TeamCreateCommand(
-                $request->course_id,
-                $request->room_id,
-                new \DateTime($request->start),
-                new \DateTime($request->end),
-                $request->shift
-            );
-            return $this->success($this->teamService->create($teamCreateCommand)->toArray());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        $teamCreateCommand = new TeamCreateCommand(
+            $request->course_id,
+            $request->room_id,
+            new \DateTime($request->start),
+            new \DateTime($request->end),
+            $request->shift
+        );
+        return $this->success($this->teamService->create($teamCreateCommand)->toArray());
     }
 
     public function find(FindRequest $request)
     {
-        try {
-            return $this->success($this->teamService->find($request->id)->toArray());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        return $this->success($this->teamService->find($request->id)->toArray());
     }
 
     public function update(UpdateRequest $request)
     {
-        try {
-            $teamUpdateCommand = new TeamUpdateCommand(
-                $request->id,
-                $request->course_id,
-                $request->room_id,
-                new \DateTime($request->start),
-                new \DateTime($request->end),
-                $request->shift
-            );
-            return $this->success($this->teamService->update($teamUpdateCommand)->toArray());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        $teamUpdateCommand = new TeamUpdateCommand(
+            $request->id,
+            $request->course_id,
+            $request->room_id,
+            new \DateTime($request->start),
+            new \DateTime($request->end),
+            $request->shift
+        );
+        return $this->success($this->teamService->update($teamUpdateCommand)->toArray());
     }
 
     public function delete(DeleteRequest $request)
     {
-        try {
-            return $this->success($this->teamService->delete($request->id));
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        return $this->success($this->teamService->delete($request->id));
     }
 
     public function list(ListRequest $request)
     {
-        try {
-            return $this->success($this->teamService->list(
-                $request->course_id,
-                $request->room_id
-            ));
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        return $this->success($this->teamService->list(
+            $request->course_id,
+            $request->room_id
+        ));
     }
 }

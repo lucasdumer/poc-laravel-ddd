@@ -19,57 +19,37 @@ class StudentController extends Controller
 
     public function create(CreateRequest $request)
     {
-        try {
-            $studentCreateCommand = new StudentCreateCommand(
-                $request->name,
-                $request->age,
-                $request->sex
-            );
-            return $this->success($this->studentService->create($studentCreateCommand)->toArray());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        $studentCreateCommand = new StudentCreateCommand(
+            $request->name,
+            $request->age,
+            $request->sex
+        );
+        return $this->success($this->studentService->create($studentCreateCommand)->toArray());
     }
 
     public function find(FindRequest $request)
     {
-        try {
-            return $this->success($this->studentService->find($request->id)->toArray());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        return $this->success($this->studentService->find($request->id)->toArray());
     }
 
     public function update(UpdateRequest $request)
     {
-        try {
-            $studentUpdateCommand = new StudentUpdateCommand(
-                $request->id,
-                $request->name,
-                $request->age,
-                $request->sex
-            );
-            return $this->success($this->studentService->update($studentUpdateCommand)->toArray());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        $studentUpdateCommand = new StudentUpdateCommand(
+            $request->id,
+            $request->name,
+            $request->age,
+            $request->sex
+        );
+        return $this->success($this->studentService->update($studentUpdateCommand)->toArray());
     }
 
     public function delete(DeleteRequest $request)
     {
-        try {
-            return $this->success($this->studentService->delete($request->id));
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        return $this->success($this->studentService->delete($request->id));
     }
 
     public function list(ListRequest $request)
     {
-        try {
-            return $this->success($this->studentService->list($request->name));
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        return $this->success($this->studentService->list($request->name));
     }
 }

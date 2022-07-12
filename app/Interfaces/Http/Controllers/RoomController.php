@@ -19,54 +19,34 @@ class RoomController extends Controller
 
     public function create(CreateRequest $request)
     {
-        try {
-            $roomCreateCommand = new RoomCreateCommand(
-                $request->name,
-                $request->numberMaximumPeople
-            );
-            return $this->success($this->roomService->create($roomCreateCommand)->toArray());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        $roomCreateCommand = new RoomCreateCommand(
+            $request->name,
+            $request->numberMaximumPeople
+        );
+        return $this->success($this->roomService->create($roomCreateCommand)->toArray());
     }
 
     public function find(FindRequest $request)
     {
-        try {
-            return $this->success($this->roomService->find($request->id)->toArray());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        return $this->success($this->roomService->find($request->id)->toArray());
     }
 
     public function update(UpdateRequest $request)
     {
-        try {
-            $roomUpdateCommand = new RoomUpdateCommand(
-                $request->id,
-                $request->name
-            );
-            return $this->success($this->roomService->update($roomUpdateCommand)->toArray());
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        $roomUpdateCommand = new RoomUpdateCommand(
+            $request->id,
+            $request->name
+        );
+        return $this->success($this->roomService->update($roomUpdateCommand)->toArray());
     }
 
     public function delete(DeleteRequest $request)
     {
-        try {
-            return $this->success($this->roomService->delete($request->id));
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        return $this->success($this->roomService->delete($request->id));
     }
 
     public function list(ListRequest $request)
     {
-        try {
-            return $this->success($this->roomService->list($request->name));
-        } catch(\Exception $e) {
-            return $this->error($e);
-        }
+        return $this->success($this->roomService->list($request->name));
     }
 }
